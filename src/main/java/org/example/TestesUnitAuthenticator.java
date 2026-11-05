@@ -134,6 +134,9 @@ public class TestesUnitAuthenticator {
         // RESUMO FINAL
         // ===============================================================
         imprimirResumoFinal();
+        if (totalTestes != testesAprovados) {
+            throw new AssertionError("A suíte falhou: " + (totalTestes - testesAprovados) + " teste(s) reprovado(s).");
+        }
     }
 
     /**
