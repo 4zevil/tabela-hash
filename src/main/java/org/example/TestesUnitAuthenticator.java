@@ -1,13 +1,38 @@
 package org.example;
 
 /**
- * Testes Visuais 
+ * Suíte de Testes Automatizados e Visuais para o Unit Authenticator.
+ * <p>
+ * Esta classe é responsável por homologar e comprovar o correto funcionamento
+ * da {@link TabelaHash}, demonstrando de forma clara no terminal as operações
+ * de inserção, tratamento de colisões por encadeamento (lista simplesmente ligada),
+ * integridade referencial em remoções, busca e autenticação.
+ * </p>
+ *
+ * @author Gabriel Lira Figueira
+ * @author Eduarda Santana Santos
+ * @author João Luís Aragão Rocha
+ * @version 1.0
  */
 public class TestesUnitAuthenticator {
 
+    /**
+     * Contador total de asserções executadas na suíte de testes.
+     */
     private static int totalTestes = 0;
+
+    /**
+     * Contador de asserções que obtiveram resultado esperado com sucesso.
+     */
     private static int testesAprovados = 0;
 
+    /**
+     * Ponto de entrada para execução da suíte de testes.
+     * Executa sequencialmente 6 cenários de teste cobrindo todas as funcionalidades
+     * exigidas no projeto acadêmico.
+     *
+     * @param args argumentos de linha de comando (não utilizados)
+     */
     public static void main(String[] args) {
         imprimirCabecalho("INICIANDO BATERIA DE TESTES DO UNIT AUTHENTICATOR");
 
@@ -34,7 +59,7 @@ public class TestesUnitAuthenticator {
         imprimirSecao("CENÁRIO 2: Tratamento de Colisões (Múltiplos usuários no mesmo índice)");
         System.out.println("Demonstrando que nomes diferentes calculam o mesmo índice e se encadeiam:");
 
-        // Índice 1: carlos, lucas e gui caem todos no índice 1!
+        // Índice 1: carlos, lucas e gui caem todos no índice 1
         testarInsercao(tabela, "carlos", "senhaCarlos1", true, "Primeiro nó no índice 1");
         testarInsercao(tabela, "lucas", "senhaLucas2", true, "Colisão! Deve entrar no início da lista do índice 1");
         testarInsercao(tabela, "gui", "senhaGui3", true, "Segunda colisão no índice 1! Deve encadear gui -> lucas -> carlos");
@@ -111,6 +136,16 @@ public class TestesUnitAuthenticator {
         imprimirResumoFinal();
     }
 
+    /**
+     * Testa a operação de inserção de chave-valor na tabela e valida se o
+     * retorno booleano corresponde à expectativa definida no teste.
+     *
+     * @param tabela instância da tabela hash sob teste
+     * @param chave nome de usuário a cadastrar
+     * @param valor senha associada
+     * @param esperado valor booleano esperado (true se sucesso, false se duplicado)
+     * @param descricao descrição legível do teste a ser exibida no log
+     */
     private static void testarInsercao(TabelaHash tabela, String chave, String valor, boolean esperado, String descricao) {
         int indice = tabela.getIndice(chave);
         boolean resultado = tabela.inserir(chave, valor);
@@ -120,6 +155,12 @@ public class TestesUnitAuthenticator {
         if (resultado == esperado) testesAprovados++;
     }
 
+    /**
+     * Valida uma condição lógica (asserção) e atualiza os contadores da suíte de testes.
+     *
+     * @param descricao texto explicativo do que está sendo verificado
+     * @param condicao resultado booleano da verificação
+     */
     private static void validar(String descricao, boolean condicao) {
         totalTestes++;
         if (condicao) {
@@ -130,18 +171,32 @@ public class TestesUnitAuthenticator {
         }
     }
 
+    /**
+     * Imprime um cabeçalho estilizado de início para o relatório no terminal.
+     *
+     * @param titulo texto do título principal
+     */
     private static void imprimirCabecalho(String titulo) {
         System.out.println("\n================================================================================");
         System.out.println("  " + titulo);
         System.out.println("================================================================================");
     }
 
+    /**
+     * Imprime um divisor de seção para separar os cenários de teste.
+     *
+     * @param titulo identificação do cenário de teste
+     */
     private static void imprimirSecao(String titulo) {
         System.out.println("\n--------------------------------------------------------------------------------");
         System.out.println("  " + titulo);
         System.out.println("--------------------------------------------------------------------------------");
     }
 
+    /**
+     * Imprime o quadro resumo final com a contagem total de testes, sucessos,
+     * falhas e status geral de homologação.
+     */
     private static void imprimirResumoFinal() {
         System.out.println("\n================================================================================");
         System.out.println("  RESUMO DOS TESTES EXECUTADOS");
