@@ -34,14 +34,16 @@ public class TabelaHash {
     /**
      * Função hash: transforma o nome em um índice do vetor
      * @param chave nome do usuário
-     * @return soma
+     * @return índice calculado
      */
     private int hash(String chave) {
-        int soma = 0;
+        int h = 0;
         for (int i = 0; i < chave.length(); i++) {
-            soma = (soma * 31 + chave.charAt(i)) % capacidade;
+            // rotação de 5 bits à esquerda (shift) combinada com XOR do caractere
+            h = (h << 5) ^ (h >>> 27) ^ chave.charAt(i);
         }
-        return soma;
+        // zera o bit de sinal para garantir índice não negativo
+        return (h & 0x7FFFFFFF) % capacidade;
     }
 
     /**
