@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * Suíte de Testes Automatizados e Visuais para o Unit Authenticator.
+ * Suíte de Testes.
  * <p>
  * Esta classe é responsável por homologar e comprovar o correto funcionamento
  * da {@link TabelaHash}, demonstrando de forma clara no terminal as operações
